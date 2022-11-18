@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+
+<SplitPane fx:id="view" dividerPositions="0.33, 0.66" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" orientation="VERTICAL" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+   <items>
+      <TitledPane animated="false" text="Teléfonos">
+         <content>
+            <BorderPane prefHeight="200.0" prefWidth="200.0">
+               <center>
+                  <TableView fx:id="telefonosTable" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                     <columns>
+                        <TableColumn fx:id="numeroCol" prefWidth="75.0" text="Número" />
+                        <TableColumn fx:id="tipoCol" prefWidth="75.0" text="Tipo" />
+                     </columns>
+                  </TableView>
+               </center>
+               <right>
+                  <VBox spacing="5.0" BorderPane.alignment="CENTER">
+                     <children>
+                        <Button fx:id="addTelefonoBoton" minWidth="60.0" mnemonicParsing="false" text="Añadir" />
+                        <Button fx:id="deleteTelefonoBoton" minWidth="60.0" mnemonicParsing="false" onAction="#OnDeleteTelefonoAction" text="Eliminar" />
+                     </children>
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                  </VBox>
+               </right>
+            </BorderPane>
+         </content>
+      </TitledPane>
+      <TitledPane animated="false" text="Direcciones de correo">
+         <content>
+            <BorderPane prefHeight="200.0" prefWidth="200.0">
+               <center>
+                  <TableView fx:id="emailTable" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                    <columns>
+                      <TableColumn fx:id="emailTab" prefWidth="250.0" text="Email" />
+                    </columns>
+                  </TableView>
+               </center>
+               <right>
+                  <VBox spacing="5.0" BorderPane.alignment="CENTER">
+                     <children>
+                        <Button fx:id="addEmailBoton" minWidth="60.0" mnemonicParsing="false" onAction="#onAddEmailBoton" text="Añadir" />
+                        <Button fx:id="deleteEmailBoton" minWidth="60.0" mnemonicParsing="false" text="Eliminar" />
+                     </children>
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                  </VBox>
+               </right>
+            </BorderPane>
+         </content>
+      </TitledPane>
+      <TitledPane animated="false" text="Webs">
+         <content>
+            <BorderPane prefHeight="200.0" prefWidth="200.0">
+               <center>
+                  <TableView fx:id="webTable" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                     <columns>
+                        <TableColumn fx:id="urlCol" prefWidth="250.0" text="URL" />
+                     </columns>
+                  </TableView>
+               </center>
+               <right>
+                  <VBox spacing="5.0" BorderPane.alignment="CENTER">
+                     <children>
+                        <Button fx:id="addUrlBoton" minWidth="60.0" mnemonicParsing="false" text="Añadir" />
+                        <Button fx:id="deleteUrlBoton" minWidth="60.0" mnemonicParsing="false" text="Eliminar" />
+                     </children>
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                  </VBox>
+               </right>
+            </BorderPane>
+         </content>
+      </TitledPane>
+   </items>
+</SplitPane>
