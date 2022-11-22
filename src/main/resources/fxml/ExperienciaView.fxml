@@ -11,10 +11,10 @@
    <center>
       <TableView fx:id="experienciaTable" BorderPane.alignment="CENTER">
         <columns>
-          <TableColumn fx:id="desdeTab" prefWidth="75.0" text="Desde" />
-          <TableColumn fx:id="hastaTab" prefWidth="75.0" text="Hasta" />
-            <TableColumn fx:id="denominacionTab" prefWidth="100.0" text="Denominación" />
-            <TableColumn fx:id="empleadorTab" prefWidth="75.0" text="Empleador" />
+          <TableColumn fx:id="desdeCol" prefWidth="75.0" text="Desde" />
+          <TableColumn fx:id="hastaCol" prefWidth="75.0" text="Hasta" />
+            <TableColumn fx:id="denominacionCol" prefWidth="100.0" text="Denominación" />
+            <TableColumn fx:id="empleadorCol" prefWidth="75.0" text="Empleador" />
         </columns>
          <columnResizePolicy>
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -24,8 +24,8 @@
    <right>
       <VBox spacing="5.0" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="addBoton" minWidth="60.0" mnemonicParsing="false" text="Añadir" />
-            <Button fx:id="deleteBoton" minWidth="60.0" mnemonicParsing="false" text="Eliminar" />
+            <Button fx:id="addBoton" minWidth="60.0" mnemonicParsing="false" onAction="#onAddAction" text="Añadir" />
+            <Button fx:id="deleteBoton" minWidth="60.0" mnemonicParsing="false" onAction="#onDeleteAction" text="Eliminar" />
          </children>
          <padding>
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />

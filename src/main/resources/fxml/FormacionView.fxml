@@ -9,7 +9,7 @@
 
 <BorderPane fx:id="view" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
    <center>
-      <TableView fx:id="formacionTable" BorderPane.alignment="CENTER">
+      <TableView fx:id="formacionTable" editable="true" BorderPane.alignment="CENTER">
         <columns>
           <TableColumn fx:id="desdeCol" prefWidth="75.0" text="Desde" />
           <TableColumn fx:id="hastaCol" prefWidth="75.0" text="Hasta" />
@@ -24,8 +24,8 @@
    <right>
       <VBox spacing="5.0" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="addBoton" minWidth="60.0" mnemonicParsing="false" text="Añadir" />
-            <Button fx:id="deleteBoton" minWidth="60.0" mnemonicParsing="false" text="Eliminar" />
+            <Button fx:id="addBoton" minWidth="60.0" mnemonicParsing="false" onAction="#onAddAction" text="Añadir" />
+            <Button fx:id="deleteBoton" minWidth="60.0" mnemonicParsing="false" onAction="#onDeleteAction" text="Eliminar" />
          </children>
          <padding>
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />

@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
 
-<SplitPane fx:id="view" dividerPositions="0.33, 0.66" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" orientation="VERTICAL" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<SplitPane fx:id="view" dividerPositions="0.33, 0.66" orientation="VERTICAL" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
    <items>
       <TitledPane animated="false" text="Teléfonos">
          <content>
@@ -25,7 +25,7 @@
                <right>
                   <VBox spacing="5.0" BorderPane.alignment="CENTER">
                      <children>
-                        <Button fx:id="addTelefonoBoton" minWidth="60.0" mnemonicParsing="false" text="Añadir" />
+                        <Button fx:id="addTelefonoBoton" minWidth="60.0" mnemonicParsing="false" onAction="#OnAddTelefonoAction" text="Añadir" />
                         <Button fx:id="deleteTelefonoBoton" minWidth="60.0" mnemonicParsing="false" onAction="#OnDeleteTelefonoAction" text="Eliminar" />
                      </children>
                      <padding>
@@ -42,7 +42,7 @@
                <center>
                   <TableView fx:id="emailTable" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                     <columns>
-                      <TableColumn fx:id="emailTab" prefWidth="250.0" text="Email" />
+                      <TableColumn fx:id="emailCol" prefWidth="250.0" text="Email" />
                     </columns>
                   </TableView>
                </center>
@@ -50,7 +50,7 @@
                   <VBox spacing="5.0" BorderPane.alignment="CENTER">
                      <children>
                         <Button fx:id="addEmailBoton" minWidth="60.0" mnemonicParsing="false" onAction="#onAddEmailBoton" text="Añadir" />
-                        <Button fx:id="deleteEmailBoton" minWidth="60.0" mnemonicParsing="false" text="Eliminar" />
+                        <Button fx:id="deleteEmailBoton" minWidth="60.0" mnemonicParsing="false" onAction="#onDeleteEmailBoton" text="Eliminar" />
                      </children>
                      <padding>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -73,8 +73,8 @@
                <right>
                   <VBox spacing="5.0" BorderPane.alignment="CENTER">
                      <children>
-                        <Button fx:id="addUrlBoton" minWidth="60.0" mnemonicParsing="false" text="Añadir" />
-                        <Button fx:id="deleteUrlBoton" minWidth="60.0" mnemonicParsing="false" text="Eliminar" />
+                        <Button fx:id="addUrlBoton" minWidth="60.0" mnemonicParsing="false" onAction="#onAddUrlBoton" text="Añadir" />
+                        <Button fx:id="deleteUrlBoton" minWidth="60.0" mnemonicParsing="false" onAction="#onDeleteUrlBoton" text="Eliminar" />
                      </children>
                      <padding>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />

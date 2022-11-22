@@ -13,23 +13,23 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<GridPane fx:id="view" hgap="5.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" vgap="5.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<GridPane fx:id="view" hgap="5.0" vgap="5.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
   <columnConstraints>
-      <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-      <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="130.0" />
+      <ColumnConstraints halignment="RIGHT" minWidth="130.0" prefWidth="100.0" />
+      <ColumnConstraints halignment="CENTER" minWidth="10.0" prefWidth="130.0" />
       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="140.0" />
     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="150.0" />
-    <ColumnConstraints hgrow="SOMETIMES" minWidth="5.0" prefWidth="5.0" />
+    <ColumnConstraints hgrow="SOMETIMES" minWidth="30.0" prefWidth="30.0" />
   </columnConstraints>
   <rowConstraints>
-      <RowConstraints valignment="CENTER" vgrow="SOMETIMES" />
+      <RowConstraints valignment="CENTER" vgrow="NEVER" />
+      <RowConstraints vgrow="NEVER" />
+      <RowConstraints vgrow="NEVER" />
+      <RowConstraints vgrow="NEVER" />
       <RowConstraints vgrow="SOMETIMES" />
-      <RowConstraints vgrow="SOMETIMES" />
-      <RowConstraints vgrow="SOMETIMES" />
-      <RowConstraints vgrow="SOMETIMES" />
-      <RowConstraints vgrow="SOMETIMES" />
-    <RowConstraints vgrow="SOMETIMES" />
-    <RowConstraints vgrow="SOMETIMES" />
+      <RowConstraints vgrow="NEVER" />
+    <RowConstraints vgrow="NEVER" />
+    <RowConstraints vgrow="NEVER" />
     <RowConstraints vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
@@ -50,17 +50,17 @@
       <TextField fx:id="nombreText" GridPane.columnIndex="1" GridPane.columnSpan="4" GridPane.rowIndex="1" />
       <TextField fx:id="apellidosText" GridPane.columnIndex="1" GridPane.columnSpan="4" GridPane.rowIndex="2" />
       <DatePicker fx:id="nacimientoDate" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="LEFT" GridPane.rowIndex="3" />
-      <TextArea fx:id="direccionText" GridPane.columnIndex="1" GridPane.columnSpan="4" GridPane.rowIndex="4" />
+      <TextArea fx:id="direccionText" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.columnSpan="4" GridPane.rowIndex="4" />
       <TextField fx:id="codigoPostalText" GridPane.columnIndex="1" GridPane.rowIndex="5" />
       <TextField fx:id="localidadText" GridPane.columnIndex="1" GridPane.columnSpan="4" GridPane.rowIndex="6" />
       <ComboBox fx:id="paisCombo" prefWidth="150.0" promptText="Seleccione un país" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="LEFT" GridPane.rowIndex="7" />
-      <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="5.0" GridPane.columnIndex="4" GridPane.rowIndex="8">
+      <VBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0" spacing="5.0" GridPane.columnIndex="4" GridPane.rowIndex="8">
          <children>
             <Button fx:id="addBoton" minWidth="25.0" mnemonicParsing="false" onAction="#onNuevaNacionalidadAction" text="+" />
             <Button fx:id="deleteBoton" minWidth="25.0" mnemonicParsing="false" onAction="#onBorrarNacionalidadAction" text="-" />
          </children>
       </VBox>
-      <ListView fx:id="nacionalidadList" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="8" />
+      <ListView fx:id="nacionalidadList" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="8" />
    </children>
    <padding>
       <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />

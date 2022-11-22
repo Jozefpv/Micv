@@ -13,11 +13,12 @@ import javafx.beans.property.StringProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBar.ButtonData;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.TextField;
-import javafx.scene.control.ButtonBar.ButtonData;
-import javafx.scene.control.ButtonType;
 import javafx.scene.layout.GridPane;
 
 public class TelefonoDialog extends Dialog<Telefono> implements Initializable {
@@ -37,18 +38,6 @@ public class TelefonoDialog extends Dialog<Telefono> implements Initializable {
 	
 	public TelefonoDialog() {
 		super();
-		setTitle("Nuevo teléfono");
-		setHeaderText("Introduzca el nuevo número de teléfono");
-		loadContent();
-		getDialogPane().setContent(view);
-		
-		ButtonType crearButtonType = new ButtonType("Añadir", ButtonData.OK_DONE);
-		getDialogPane().getButtonTypes().addAll(crearButtonType, ButtonType.CANCEL);
-	}
-	
-	
-	private void loadContent() {
-
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/customAlerts/NuevoTelefonoView.fxml"));
 			loader.setController(this);
@@ -56,17 +45,46 @@ public class TelefonoDialog extends Dialog<Telefono> implements Initializable {
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
+	
 	}
-
+	
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		//init dialog
+		ButtonType crearButtonType = new ButtonType("Añadir", ButtonData.OK_DONE);
+
+		setTitle("Nuevo teléfono");
+		setHeaderText("Introduzca el nuevo número de teléfono");
+		getDialogPane().setContent(view);
+		getDialogPane().getButtonTypes().addAll(crearButtonType, ButtonType.CANCEL);
+		
+		setResultConverter(buttonType -> onCovertResult(buttonType));
+		
+		Button crearButton = (Button) getDialogPane().lookupButton(crearButtonType);
+		crearButton.disableProperty().bind(numero.isEmpty().or(tipo.isNull()));
 		//bindings
 		numero.bind(numeroText.textProperty());
 		tipo.bind(tipoCombo.getSelectionModel().selectedItemProperty());
 	
 		//load combo
 		tipoCombo.getItems().setAll(TipoTelefono.values());
+		
+		numeroText.requestFocus();
+	}
+
+
+
+
+
+	private Telefono onCovertResult(ButtonType buttonType) {
+		if(buttonType.getButtonData() == ButtonData.OK_DONE) {
+			Telefono telefono = new Telefono();
+			telefono.setNumero(numero.get());
+			telefono.setTipo(tipo.get());
+			return telefono;
+		}
+		return null;
 	}
 	
 		

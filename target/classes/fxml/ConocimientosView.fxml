@@ -11,8 +11,8 @@
    <center>
       <TableView fx:id="conocimientosTable" BorderPane.alignment="CENTER">
         <columns>
-          <TableColumn fx:id="denominacionTab" prefWidth="100.0" text="Denominacion" />
-          <TableColumn fx:id="nivelTab" prefWidth="75.0" text="Nivel" />
+          <TableColumn fx:id="denominacionCol" prefWidth="100.0" text="Denominacion" />
+          <TableColumn fx:id="nivelCol" prefWidth="75.0" text="Nivel" />
         </columns>
          <columnResizePolicy>
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -22,9 +22,9 @@
    <right>
       <VBox spacing="5.0" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="addConocimientoBoton" minWidth="130.0" mnemonicParsing="false" text="Añadir conocimiento" />
-            <Button fx:id="addIdiomaBoton" minWidth="130.0" mnemonicParsing="false" text="Añadir idioma" />
-            <Button fx:id="deleteBoton" minWidth="130.0" mnemonicParsing="false" text="Eliminar" />
+            <Button fx:id="addConocimientoBoton" minWidth="130.0" mnemonicParsing="false" onAction="#onAddConocimientoAction" text="Añadir conocimiento" />
+            <Button fx:id="addIdiomaBoton" minWidth="130.0" mnemonicParsing="false" onAction="#onAddIdiomaAction" text="Añadir idioma" />
+            <Button fx:id="deleteBoton" minWidth="130.0" mnemonicParsing="false" onAction="#onDeleteAction" text="Eliminar" />
          </children>
          <padding>
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />

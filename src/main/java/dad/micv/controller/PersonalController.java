@@ -9,14 +9,15 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import dad.micv.app.MicvApp;
 import dad.micv.model.Nacionalidad;
 import dad.micv.model.Personal;
 import javafx.beans.property.ListProperty;
+import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleListProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -35,9 +36,8 @@ public class PersonalController implements Initializable {
 
 	ListProperty<String> paisesList = new SimpleListProperty<>(FXCollections.observableArrayList());
 	ListProperty<Nacionalidad> nacionalidadesList = new SimpleListProperty<>(FXCollections.observableArrayList());
-
+	private ObjectProperty<Personal> personal = new SimpleObjectProperty<>();
 	
-	Personal model = new Personal();
     @FXML
     private Button addBoton;
 
@@ -87,19 +87,19 @@ public class PersonalController implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 
-		//bindings
-		model.identificacionProperty().bind(dniText.textProperty());
-		model.nombreProperty().bind(nombreText.textProperty());
-		model.apellidosProperty().bind(apellidosText.textProperty());
-		//model.fechaNacimientoProperty().bind(nacimientoDate.);
-		model.direccionProperty().bind(direccionText.textProperty());
-		model.codigoPostalProperty().bind(codigoPostalText.textProperty());
-		model.localidadProperty().bind(localidadText.textProperty());
-		model.paisProperty().bind(paisCombo.getSelectionModel().selectedItemProperty());;
-		nacionalidadList.itemsProperty().bind(model.nacionalidadesProperty());
-
-		//TODO nacionalidad
-		
+		personal.addListener((o, ov, nv) -> {
+			
+		});
+//		//bindings
+//		model.identificacionProperty().bind(dniText.textProperty());
+//		model.nombreProperty().bind(nombreText.textProperty());
+//		model.apellidosProperty().bind(apellidosText.textProperty());
+//		model.fechaNacimientoProperty().bind(nacimientoDate.valueProperty());
+//		model.direccionProperty().bind(direccionText.textProperty());
+//		model.codigoPostalProperty().bind(codigoPostalText.textProperty());
+//		model.localidadProperty().bind(localidadText.textProperty());
+//		model.paisProperty().bind(paisCombo.getSelectionModel().selectedItemProperty());;
+//		nacionalidadList.itemsProperty().bind(model.nacionalidadesProperty());	
 		
 		//load data
 		try {
@@ -125,7 +125,6 @@ public class PersonalController implements Initializable {
 					);
 			
 		} catch (URISyntaxException | IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -151,14 +150,32 @@ public class PersonalController implements Initializable {
 		dialog.setContentText("Seleccione una nacionalidad");
 		dialog.getItems().setAll(nacionalidadesList);
 		dialog.getItems().removeAll(model.getNacionalidades());
+		dialog.setSelectedItem(dialog.getItems().get(0));
 		Nacionalidad nacionalidad = dialog.showAndWait().orElse(null);
 		
+		if(nacionalidad != null) {
+			model.getNacionalidades().add(nacionalidad);
+		}
 		
-    	//PREGUNTAR AL PROFESOR QUE HACER CON LAS NACIONALIDADES
     }
 	
 	public GridPane getView() {
 		return view;
 	}
+
+	public final ObjectProperty<Personal> personalProperty() {
+		return this.personal;
+	}
+	
+
+	public final Personal getPersonal() {
+		return this.personalProperty().get();
+	}
+	
+
+	public final void setPersonal(final Personal personal) {
+		this.personalProperty().set(personal);
+	}
+	
 
 }

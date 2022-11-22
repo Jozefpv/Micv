@@ -11,69 +11,81 @@
 <?import javafx.scene.input.KeyCodeCombination?>
 <?import javafx.scene.layout.BorderPane?>
 
-<BorderPane fx:id="mainView" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
-   <top>
-      <MenuBar BorderPane.alignment="CENTER">
-        <menus>
-          <Menu mnemonicParsing="false" text="Archivo">
-            <items>
-              <MenuItem fx:id="nuevo" mnemonicParsing="false" text="Nuevo">
-                     <graphic>
-                        <ImageView pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="/images/nuevo.gif" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                     <accelerator>
-                        <KeyCodeCombination alt="UP" code="N" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
-                     </accelerator></MenuItem>
-                  <MenuItem fx:id="abrir" mnemonicParsing="false" text="Abrir...">
-                     <graphic>
-                        <ImageView pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="/images/abrir.gif" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                     <accelerator>
-                        <KeyCodeCombination alt="UP" code="A" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
-                     </accelerator>
-                  </MenuItem>
-                  <MenuItem fx:id="guardar" mnemonicParsing="false" text="Guardar">
-                     <graphic>
-                        <ImageView pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="/images/guardar.gif" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                  </MenuItem>
-                  <MenuItem fx:id="guardarComo" mnemonicParsing="false" text="Guardar como..." />
-                  <SeparatorMenuItem mnemonicParsing="false" />
-                  <MenuItem fx:id="salir" mnemonicParsing="false" text="Salir">
-                     <accelerator>
-                        <KeyCodeCombination alt="UP" code="S" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
-                     </accelerator></MenuItem>
-            </items>
-          </Menu>
-          <Menu mnemonicParsing="false" text="Ayuda">
-            <items>
-              <MenuItem mnemonicParsing="false" text="Acerca de..." />
-            </items>
-          </Menu>
-        </menus>
-      </MenuBar>
-   </top>
-   <center>
-      <TabPane tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
-        <tabs>
-          <Tab fx:id="personalTab" text="Personal" />
-          <Tab fx:id="contactoTab" text="Contacto" />
-            <Tab fx:id="formacionTab" text="Formación" />
-            <Tab fx:id="experienciaTab" text="Experiencia" />
-            <Tab fx:id="conocimientosTab" text="Conocimientos" />
-        </tabs>
-      </TabPane>
-   </center>
+<BorderPane fx:id="mainView"
+	xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+	<top>
+		<MenuBar BorderPane.alignment="CENTER">
+			<menus>
+				<Menu mnemonicParsing="false" text="Archivo">
+					<items>
+						<MenuItem fx:id="nuevo" mnemonicParsing="false"
+							text="Nuevo">
+							<graphic>
+								<ImageView pickOnBounds="true" preserveRatio="true">
+									<image>
+										<Image url="@../images/nuevo.gif" />
+									</image>
+								</ImageView>
+							</graphic>
+							<accelerator>
+								<KeyCodeCombination alt="UP" code="N"
+									control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+							</accelerator>
+						</MenuItem>
+						<MenuItem fx:id="abrir" mnemonicParsing="false"
+							text="Abrir...">
+							<graphic>
+								<ImageView pickOnBounds="true" preserveRatio="true">
+									<image>
+										<Image url="@../images/abrir.gif" />
+									</image>
+								</ImageView>
+							</graphic>
+							<accelerator>
+								<KeyCodeCombination alt="UP" code="A"
+									control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+							</accelerator>
+						</MenuItem>
+						<MenuItem fx:id="guardar" mnemonicParsing="false"
+							text="Guardar">
+							<graphic>
+								<ImageView pickOnBounds="true" preserveRatio="true">
+									<image>
+										<Image url="@../images/guardar.gif" />
+									</image>
+								</ImageView>
+							</graphic>
+						</MenuItem>
+						<MenuItem fx:id="guardarComo" mnemonicParsing="false"
+							text="Guardar como..." />
+						<SeparatorMenuItem mnemonicParsing="false" />
+						<MenuItem fx:id="salir" mnemonicParsing="false"
+							text="Salir">
+							<accelerator>
+								<KeyCodeCombination alt="UP" code="S"
+									control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+							</accelerator>
+						</MenuItem>
+					</items>
+				</Menu>
+				<Menu mnemonicParsing="false" text="Ayuda">
+					<items>
+						<MenuItem mnemonicParsing="false" text="Acerca de..." />
+					</items>
+				</Menu>
+			</menus>
+		</MenuBar>
+	</top>
+	<center>
+		<TabPane tabClosingPolicy="UNAVAILABLE"
+			BorderPane.alignment="CENTER">
+			<tabs>
+				<Tab fx:id="personalTab" text="Personal" />
+				<Tab fx:id="contactoTab" text="Contacto" />
+				<Tab fx:id="formacionTab" text="Formación" />
+				<Tab fx:id="experienciaTab" text="Experiencia" />
+				<Tab fx:id="conocimientosTab" text="Conocimientos" />
+			</tabs>
+		</TabPane>
+	</center>
 </BorderPane>
