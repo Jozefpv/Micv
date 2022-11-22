@@ -18,6 +18,7 @@ import dad.micv.app.MicvApp;
 import dad.micv.model.CV;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -29,8 +30,10 @@ import javafx.stage.FileChooser.ExtensionFilter;
 
 public class MainController implements Initializable {
 
-	private static Gson gson = FxGson.fullBuilder().setPrettyPrinting()
-			.registerTypeAdapter(LocalDate.class, new LocalDateAdapter()).create();
+	private static Gson gson = FxGson.fullBuilder()
+			.setPrettyPrinting()
+			.registerTypeAdapter(LocalDate.class, new LocalDateAdapter())
+			.create();
 
 	//model
 	private ObjectProperty<CV> cv = new SimpleObjectProperty<>();
@@ -98,7 +101,31 @@ public class MainController implements Initializable {
 		abrir.setOnAction(e -> openFile());
 		guardarComo.setOnAction(e -> saveAs());
 		
+		cv.addListener(this::onCVChanged);
 		cv.set(new CV());
+		
+	}
+
+	private void onCVChanged(ObservableValue<? extends CV> o, CV ov, CV nv) {
+		
+		System.out.println("nuevo cv: " + cv.get().getPersonal());
+		
+		if (ov != null) {
+			
+			personalController.personalProperty().unbind();
+			
+			// TODO hacer lo mismo para el resto de controladores
+			
+		}
+
+		if (nv != null) {
+			
+			personalController.personalProperty().bind(nv.personalProperty());
+
+			// TODO hacer lo mismo para el resto de controladores
+			
+		}
+		
 	}
 
 	private void saveAs() {
@@ -121,7 +148,17 @@ public class MainController implements Initializable {
 	private void openFile() {
 		FileChooser fileChooser = new FileChooser();
 		File selectedFile = fileChooser.showOpenDialog(MicvApp.primaryStage);
-
+		if (selectedFile != null) {
+			try {
+				String json = Files.readString(selectedFile.toPath(), StandardCharsets.UTF_8);
+				CV cv = gson.fromJson(json, CV.class);
+				this.cv.set(cv);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			
+		}
+		
 	}
 
 	public BorderPane getView() {
