@@ -131,7 +131,10 @@ public class Personal {
 		this.nacionalidadesProperty().set(nacionalidades);
 	}
 	
-
+	@Override
+	public String toString() {
+		return getNombre() + " " + getApellidos();
+	}
 
 
 }
