@@ -15,46 +15,46 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.DateCell;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.layout.GridPane;
 
-public class ExperienciaDialog extends Dialog<Experiencia>implements Initializable {
+public class ExperienciaDialog extends Dialog<Experiencia> implements Initializable {
 
-	//model
+	// model
 	private StringProperty denominacion = new SimpleStringProperty();
 	private StringProperty empleador = new SimpleStringProperty();
 	private ObjectProperty<LocalDate> desde = new SimpleObjectProperty<>();
 	private ObjectProperty<LocalDate> hasta = new SimpleObjectProperty<>();
 
-	
-    @FXML
-    private TextField denominacionText;
+	@FXML
+	private TextField denominacionText;
 
-    @FXML
-    private DatePicker desdeDate;
+	@FXML
+	private DatePicker desdeDate;
 
-    @FXML
-    private TextField empleadorText;
+	@FXML
+	private TextField empleadorText;
 
-    @FXML
-    private DatePicker hastaDate;
+	@FXML
+	private DatePicker hastaDate;
 
-    @FXML
-    private GridPane view;
-    
-    public ExperienciaDialog() {
-    	super();
-    	try {
+	@FXML
+	private GridPane view;
+
+	public ExperienciaDialog() {
+		super();
+		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/customAlerts/NuevaExperienciaView.fxml"));
 			loader.setController(this);
 			loader.load();
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
-    }
+	}
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -62,26 +62,47 @@ public class ExperienciaDialog extends Dialog<Experiencia>implements Initializab
 		ButtonType crearButtonType = new ButtonType("Crear", ButtonData.OK_DONE);
 
 		setTitle("Nuevo experiencia");
-		
+
 		getDialogPane().setContent(view);
 		getDialogPane().getButtonTypes().addAll(crearButtonType, ButtonType.CANCEL);
-		
+
 		setResultConverter(buttonType -> onCovertResult(buttonType));
-		
+
 		Button crearButton = (Button) getDialogPane().lookupButton(crearButtonType);
-		crearButton.disableProperty().bind(denominacion.isEmpty().or(empleador.isEmpty().or(desde.isNull().or(hasta.isNull()))));
-		
-		//bindings
+		crearButton.disableProperty()
+				.bind(denominacion.isEmpty().or(empleador.isEmpty().or(desde.isNull().or(hasta.isNull()))));
+
+		// bindings
 		denominacion.bind(denominacionText.textProperty());
 		empleador.bind(empleadorText.textProperty());
 		desde.bind(desdeDate.valueProperty());
 		hasta.bind(hastaDate.valueProperty());
-		
+
 		denominacionText.requestFocus();
+
+		hastaDate.setDayCellFactory(d -> new DateCell() {
+			@Override
+			public void updateItem(LocalDate item, boolean empty) {
+				super.updateItem(item, empty);
+				if (desdeDate.getValue() != null) {
+					setDisable(item.isBefore(desdeDate.getValue()));
+				}
+			}
+		});
+		
+		desdeDate.setDayCellFactory(d -> new DateCell() {
+			@Override
+			public void updateItem(LocalDate item, boolean empty) {
+				super.updateItem(item, empty);
+				if (hastaDate.getValue() != null) {
+					setDisable(item.isAfter(hastaDate.getValue()));
+				}
+			}
+		});
 	}
-	
+
 	private Experiencia onCovertResult(ButtonType buttonType) {
-		if(buttonType.getButtonData() == ButtonData.OK_DONE) {
+		if (buttonType.getButtonData() == ButtonData.OK_DONE) {
 			Experiencia experiencia = new Experiencia();
 			experiencia.setDenominacion(denominacion.get());
 			experiencia.setEmpleador(empleador.get());
@@ -91,7 +112,7 @@ public class ExperienciaDialog extends Dialog<Experiencia>implements Initializab
 		}
 		return null;
 	}
-	
+
 	public GridPane getView() {
 		return view;
 	}

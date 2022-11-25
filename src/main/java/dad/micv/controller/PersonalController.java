@@ -18,6 +18,7 @@ import javafx.beans.property.ListProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleListProperty;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -87,19 +88,9 @@ public class PersonalController implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 
-		personal.addListener((o, ov, nv) -> {
-			
-		});
-//		//bindings
-//		model.identificacionProperty().bind(dniText.textProperty());
-//		model.nombreProperty().bind(nombreText.textProperty());
-//		model.apellidosProperty().bind(apellidosText.textProperty());
-//		model.fechaNacimientoProperty().bind(nacimientoDate.valueProperty());
-//		model.direccionProperty().bind(direccionText.textProperty());
-//		model.codigoPostalProperty().bind(codigoPostalText.textProperty());
-//		model.localidadProperty().bind(localidadText.textProperty());
-//		model.paisProperty().bind(paisCombo.getSelectionModel().selectedItemProperty());;
-//		nacionalidadList.itemsProperty().bind(model.nacionalidadesProperty());	
+		personal.addListener((o, ov, nv) -> onPersonalChanged(o, ov, nv));
+
+
 		
 		//load data
 		try {
@@ -132,10 +123,40 @@ public class PersonalController implements Initializable {
 		
 	}
 	
-    @FXML
+    private void onPersonalChanged(ObservableValue<? extends Personal> o, Personal ov, Personal nv) {
+    	
+    	if(ov != null) {
+    		dniText.textProperty().unbindBidirectional(ov.identificacionProperty());
+    		nombreText.textProperty().unbindBidirectional(ov.nombreProperty());
+    		apellidosText.textProperty().unbindBidirectional(ov.apellidosProperty());
+    		nacimientoDate.valueProperty().unbindBidirectional(ov.fechaNacimientoProperty());
+    		direccionText.textProperty().unbindBidirectional(ov.direccionProperty());
+    		codigoPostalText.textProperty().unbindBidirectional(ov.codigoPostalProperty());
+    		localidadText.textProperty().unbindBidirectional(ov.localidadProperty());
+    		ov.paisProperty().unbind();
+    		nacionalidadList.itemsProperty().unbind();
+    	}
+    	
+    	if(nv != null) {
+    		// bindings
+    		dniText.textProperty().bindBidirectional(nv.identificacionProperty());
+    		nombreText.textProperty().bindBidirectional(nv.nombreProperty());
+    		apellidosText.textProperty().bindBidirectional(nv.apellidosProperty());
+    		nacimientoDate.valueProperty().bindBidirectional(nv.fechaNacimientoProperty());
+    		direccionText.textProperty().bindBidirectional(nv.direccionProperty());
+    		codigoPostalText.textProperty().bindBidirectional(nv.codigoPostalProperty());
+    		localidadText.textProperty().bindBidirectional(nv.localidadProperty());
+    		nacionalidadList.itemsProperty().bind(nv.nacionalidadesProperty());
+    		
+    		paisCombo.getSelectionModel().select(nv.getPais());
+    		nv.paisProperty().bind(paisCombo.getSelectionModel().selectedItemProperty());
+    	}
+    }
+
+	@FXML
     void onBorrarNacionalidadAction(ActionEvent event) {
     	if(!nacionalidadList.getSelectionModel().isEmpty()) {
-    		model.nacionalidadesProperty().remove(nacionalidadList.getSelectionModel().selectedIndexProperty().get());
+    		getPersonal().nacionalidadesProperty().remove(nacionalidadList.getSelectionModel().selectedIndexProperty().get());
     	}
     }
 	
@@ -149,12 +170,12 @@ public class PersonalController implements Initializable {
 		dialog.setHeaderText("Añadir nacionalidad");
 		dialog.setContentText("Seleccione una nacionalidad");
 		dialog.getItems().setAll(nacionalidadesList);
-		dialog.getItems().removeAll(model.getNacionalidades());
+		dialog.getItems().removeAll(getPersonal().getNacionalidades());
 		dialog.setSelectedItem(dialog.getItems().get(0));
 		Nacionalidad nacionalidad = dialog.showAndWait().orElse(null);
 		
 		if(nacionalidad != null) {
-			model.getNacionalidades().add(nacionalidad);
+			getPersonal().getNacionalidades().add(nacionalidad);
 		}
 		
     }

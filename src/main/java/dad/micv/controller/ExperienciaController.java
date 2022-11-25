@@ -8,23 +8,32 @@ import java.util.ResourceBundle;
 
 import dad.micv.app.MicvApp;
 import dad.micv.dialogs.ExperienciaDialog;
-import dad.micv.model.CV;
 import dad.micv.model.Experiencia;
+import javafx.beans.property.ListProperty;
+import javafx.beans.property.SimpleListProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.BorderPane;
+import javafx.util.converter.LocalDateStringConverter;
 
 public class ExperienciaController implements Initializable {
 
-	CV model = new CV();
+	//model
+//	ObjectProperty<CV> cv = new SimpleObjectProperty<>();
+	// Solo necestio la lista como modelo por lo tanto al no ser un objeto complejo no necesito listener
+	//
+	ListProperty<Experiencia> experiencia = new SimpleListProperty<>(FXCollections.observableArrayList());
 	
     @FXML
     private Button addBoton;
@@ -63,24 +72,48 @@ public class ExperienciaController implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 
-		experienciaTable.itemsProperty().bind(model.experienciasProperty());
+//		cv.addListener((o, ov, nv) -> onExperienciaChanged(o, ov, nv));
+//		cv.set(new CV());
+		//Preguntar porque funciona???
+		
+		experienciaTable.itemsProperty().bind(experiencia);
 		denominacionCol.setCellValueFactory(v -> v.getValue().denominacionProperty());
 		empleadorCol.setCellValueFactory(v -> v.getValue().empleadorProperty());
 		desdeCol.setCellValueFactory(v -> v.getValue().desdeProperty());
 		hastaCol.setCellValueFactory(v -> v.getValue().hastaProperty());
+		
+		//Para poder editar sobre la propia tabla
+		denominacionCol.setCellFactory(TextFieldTableCell.forTableColumn());
+		empleadorCol.setCellFactory(TextFieldTableCell.forTableColumn());
+		desdeCol.setCellFactory(TextFieldTableCell.forTableColumn(new LocalDateStringConverter()));
+		hastaCol.setCellFactory(TextFieldTableCell.forTableColumn(new LocalDateStringConverter()));
 		
 		deleteBoton.disableProperty().bind(experienciaTable.getSelectionModel().selectedItemProperty().isNull());
 		
 
 	}
 	
-    @FXML
+//    private void onExperienciaChanged(ObservableValue<? extends CV> o, CV ov, CV nv) {
+//    	
+//    	if(ov != null) {
+//        	experienciaTable.itemsProperty().unbind();
+//
+//    	}
+//    	
+//    	if(nv != null) {
+//        	experienciaTable.itemsProperty().bind(nv.experienciasProperty());
+//        	//PREGUNTAR SI ESTO ESTÁ BIEN
+//    	}
+//    	
+//	}
+	@FXML
     void onAddAction(ActionEvent event) {
     	ExperienciaDialog dialog = new ExperienciaDialog();
     	dialog.initOwner(MicvApp.primaryStage);
     	Experiencia experiencia = dialog.showAndWait().orElse(null);
     	if(experiencia != null) {
-    		model.experienciasProperty().add(experiencia);
+    		getExperiencia().add(experiencia);
+    		
     	}
     	
     }
@@ -96,7 +129,7 @@ public class ExperienciaController implements Initializable {
 
         	Optional<ButtonType> result = alert.showAndWait();
         	if (result.get() == ButtonType.OK){
-        		model.getExperiencias().remove(experienciaTable.getSelectionModel().selectedIndexProperty().get());
+        		getExperiencia().remove(experienciaTable.getSelectionModel().selectedIndexProperty().get());
         	} 
     	}
     }
@@ -104,6 +137,30 @@ public class ExperienciaController implements Initializable {
 	public BorderPane getView() {
 		return view;
 	}
+//	public final ObjectProperty<CV> cvProperty() {
+//		return this.cv;
+//	}
+//	
+//	public final CV getCv() {
+//		return this.cvProperty().get();
+//	}
+//	
+//	public final void setCv(final CV cv) {
+//		this.cvProperty().set(cv);
+//	}
+	public final ListProperty<Experiencia> experienciaProperty() {
+		return this.experiencia;
+	}
+	
+	public final ObservableList<Experiencia> getExperiencia() {
+		return this.experienciaProperty().get();
+	}
+	
+	public final void setExperiencia(final ObservableList<Experiencia> experiencia) {
+		this.experienciaProperty().set(experiencia);
+	}
+	
+	
 	
 	
 	

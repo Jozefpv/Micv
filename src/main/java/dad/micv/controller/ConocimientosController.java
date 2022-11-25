@@ -8,9 +8,12 @@ import java.util.ResourceBundle;
 import dad.micv.app.MicvApp;
 import dad.micv.dialogs.ConocimientoDialog;
 import dad.micv.dialogs.ConocimientoIdiomaDialog;
-import dad.micv.model.CV;
 import dad.micv.model.Conocimiento;
 import dad.micv.model.Nivel;
+import javafx.beans.property.ListProperty;
+import javafx.beans.property.SimpleListProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -21,11 +24,14 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.cell.ComboBoxTableCell;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.BorderPane;
 
 public class ConocimientosController implements Initializable {
 
-	CV model = new CV();
+	// model
+	ListProperty<Conocimiento> habilidades = new SimpleListProperty<>(FXCollections.observableArrayList());
 
 	@FXML
 	private Button addConocimientoBoton;
@@ -61,10 +67,16 @@ public class ConocimientosController implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 
-		conocimientosTable.itemsProperty().bind(model.habilidadesProperty());
+		conocimientosTable.itemsProperty().bind(habilidades);
 
 		denominacionCol.setCellValueFactory(v -> v.getValue().denominacionProperty());
 		nivelCol.setCellValueFactory(v -> v.getValue().nivelProperty());
+
+		// Para poder editar sobre la propia tabla
+		denominacionCol.setCellFactory(TextFieldTableCell.forTableColumn());
+		nivelCol.setCellFactory(ComboBoxTableCell.forTableColumn(Nivel.values())); // al ser una enumeracion con unos
+																					// determinados valores tenemos que
+																					// usar el combo
 
 		deleteBoton.disableProperty().bind(conocimientosTable.getSelectionModel().selectedItemProperty().isNull());
 	}
@@ -75,7 +87,7 @@ public class ConocimientosController implements Initializable {
 		dialog.initOwner(MicvApp.primaryStage);
 		Conocimiento conocimiento = dialog.showAndWait().orElse(null);
 		if (conocimiento != null) {
-			model.habilidadesProperty().add(conocimiento);
+			habilidadesProperty().add(conocimiento);
 		}
 	}
 
@@ -84,8 +96,8 @@ public class ConocimientosController implements Initializable {
 		ConocimientoIdiomaDialog dialog = new ConocimientoIdiomaDialog();
 		dialog.initOwner(MicvApp.primaryStage);
 		Conocimiento conocimiento = dialog.showAndWait().orElse(null);
-		if(conocimiento != null) {
-			model.habilidadesProperty().add(conocimiento);
+		if (conocimiento != null) {
+			habilidadesProperty().add(conocimiento);
 		}
 	}
 
@@ -100,13 +112,25 @@ public class ConocimientosController implements Initializable {
 
 			Optional<ButtonType> result = alert.showAndWait();
 			if (result.get() == ButtonType.OK) {
-				model.getHabilidades().remove(conocimientosTable.getSelectionModel().selectedIndexProperty().get());
+				getHabilidades().remove(conocimientosTable.getSelectionModel().selectedIndexProperty().get());
 			}
 		}
 	}
 
 	public BorderPane getView() {
 		return view;
+	}
+
+	public final ListProperty<Conocimiento> habilidadesProperty() {
+		return this.habilidades;
+	}
+
+	public final ObservableList<Conocimiento> getHabilidades() {
+		return this.habilidadesProperty().get();
+	}
+
+	public final void setHabilidades(final ObservableList<Conocimiento> habilidades) {
+		this.habilidadesProperty().set(habilidades);
 	}
 
 }

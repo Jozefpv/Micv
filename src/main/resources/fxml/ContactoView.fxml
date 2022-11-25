@@ -15,7 +15,7 @@
          <content>
             <BorderPane prefHeight="200.0" prefWidth="200.0">
                <center>
-                  <TableView fx:id="telefonosTable" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                  <TableView fx:id="telefonosTable" editable="true" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                      <columns>
                         <TableColumn fx:id="numeroCol" prefWidth="75.0" text="Número" />
                         <TableColumn fx:id="tipoCol" prefWidth="75.0" text="Tipo" />
@@ -40,7 +40,7 @@
          <content>
             <BorderPane prefHeight="200.0" prefWidth="200.0">
                <center>
-                  <TableView fx:id="emailTable" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                  <TableView fx:id="emailTable" editable="true" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                     <columns>
                       <TableColumn fx:id="emailCol" prefWidth="250.0" text="Email" />
                     </columns>
@@ -64,7 +64,7 @@
          <content>
             <BorderPane prefHeight="200.0" prefWidth="200.0">
                <center>
-                  <TableView fx:id="webTable" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                  <TableView fx:id="webTable" editable="true" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                      <columns>
                         <TableColumn fx:id="urlCol" prefWidth="250.0" text="URL" />
                      </columns>

@@ -11,15 +11,13 @@
 <?import javafx.scene.input.KeyCodeCombination?>
 <?import javafx.scene.layout.BorderPane?>
 
-<BorderPane fx:id="mainView"
-	xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane fx:id="mainView" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
 	<top>
 		<MenuBar BorderPane.alignment="CENTER">
 			<menus>
 				<Menu mnemonicParsing="false" text="Archivo">
 					<items>
-						<MenuItem fx:id="nuevo" mnemonicParsing="false"
-							text="Nuevo">
+						<MenuItem fx:id="nuevo" mnemonicParsing="false" text="Nuevo">
 							<graphic>
 								<ImageView pickOnBounds="true" preserveRatio="true">
 									<image>
@@ -28,12 +26,10 @@
 								</ImageView>
 							</graphic>
 							<accelerator>
-								<KeyCodeCombination alt="UP" code="N"
-									control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+								<KeyCodeCombination alt="UP" code="N" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
 							</accelerator>
 						</MenuItem>
-						<MenuItem fx:id="abrir" mnemonicParsing="false"
-							text="Abrir...">
+						<MenuItem fx:id="abrir" mnemonicParsing="false" text="Abrir...">
 							<graphic>
 								<ImageView pickOnBounds="true" preserveRatio="true">
 									<image>
@@ -42,12 +38,10 @@
 								</ImageView>
 							</graphic>
 							<accelerator>
-								<KeyCodeCombination alt="UP" code="A"
-									control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+								<KeyCodeCombination alt="UP" code="A" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
 							</accelerator>
 						</MenuItem>
-						<MenuItem fx:id="guardar" mnemonicParsing="false"
-							text="Guardar">
+						<MenuItem fx:id="guardar" mnemonicParsing="false" text="Guardar">
 							<graphic>
 								<ImageView pickOnBounds="true" preserveRatio="true">
 									<image>
@@ -55,15 +49,15 @@
 									</image>
 								</ImageView>
 							</graphic>
+                     <accelerator>
+                        <KeyCodeCombination alt="UP" code="G" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                     </accelerator>
 						</MenuItem>
-						<MenuItem fx:id="guardarComo" mnemonicParsing="false"
-							text="Guardar como..." />
+						<MenuItem fx:id="guardarComo" mnemonicParsing="false" text="Guardar como..." />
 						<SeparatorMenuItem mnemonicParsing="false" />
-						<MenuItem fx:id="salir" mnemonicParsing="false"
-							text="Salir">
+						<MenuItem fx:id="salir" mnemonicParsing="false" text="Salir">
 							<accelerator>
-								<KeyCodeCombination alt="UP" code="S"
-									control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+								<KeyCodeCombination alt="UP" code="S" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
 							</accelerator>
 						</MenuItem>
 					</items>
@@ -77,8 +71,7 @@
 		</MenuBar>
 	</top>
 	<center>
-		<TabPane tabClosingPolicy="UNAVAILABLE"
-			BorderPane.alignment="CENTER">
+		<TabPane tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
 			<tabs>
 				<Tab fx:id="personalTab" text="Personal" />
 				<Tab fx:id="contactoTab" text="Contacto" />

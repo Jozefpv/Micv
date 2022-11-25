@@ -16,6 +16,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.DateCell;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.TextField;
@@ -78,6 +79,26 @@ public class TituloDialog extends Dialog<Titulo>implements Initializable {
 		hasta.bind(hastaDate.valueProperty());
 		
 		denominacionText.requestFocus();
+		
+		hastaDate.setDayCellFactory(d -> new DateCell() {
+			@Override
+			public void updateItem(LocalDate item, boolean empty) {
+				super.updateItem(item, empty);
+				if (desdeDate.getValue() != null) {
+					setDisable(item.isBefore(desdeDate.getValue()));
+				}
+			}
+		});
+		
+		desdeDate.setDayCellFactory(d -> new DateCell() {
+			@Override
+			public void updateItem(LocalDate item, boolean empty) {
+				super.updateItem(item, empty);
+				if (hastaDate.getValue() != null) {
+					setDisable(item.isAfter(hastaDate.getValue()));
+				}
+			}
+		});
 
 	}
 	
